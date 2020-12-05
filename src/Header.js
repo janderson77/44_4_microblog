@@ -3,12 +3,12 @@ import {NavLink} from 'react-router-dom'
 
 const Header = () => {
     return(
-        <div className="container=lg">
+        <div className="jumbotron">
             <h1 className="display-3">Microblog</h1>
-            <p>Get in the Rithm of blogging!</p>
+            <p className="lead">Get in the Rithm of blogging!</p>
             <div>
-                <NavLink to="/">Blog</NavLink>
-                <NavLink to="/new">Add a new post</NavLink>
+                <NavLink className="Header-nav" to="/">Blog</NavLink>
+                <NavLink className="Header-nav" to="/posts/new">Add a new post</NavLink>
             </div>
         </div>
         

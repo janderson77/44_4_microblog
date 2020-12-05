@@ -9,7 +9,7 @@ const Routes = () => {
             <Route path="/" exact >
                 <Blog />
             </Route>
-            <Route path="/new" exact >
+            <Route path="/posts/new" exact >
                 <NewPost />
             </Route>
             <Redirect to="/" />

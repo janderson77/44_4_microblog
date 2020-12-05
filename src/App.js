@@ -5,8 +5,10 @@ import Routes from './Routes'
 function App() {
   return (
     <main>
-      <Header />
-      <Routes />
+      <div className="container-lg">
+        <Header />
+        <Routes />
+      </div>
     </main>
   );
 }
