@@ -1,0 +1,1 @@
+exports.postNewSchema = require("./post");
