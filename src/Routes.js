@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import Blog from './Blog'
-import NewPost from './NewPost'
+import PostForm from './PostForm'
 
 const Routes = () => {
     return (
@@ -9,8 +9,8 @@ const Routes = () => {
             <Route path="/" exact >
                 <Blog />
             </Route>
-            <Route path="/posts/new" exact >
-                <NewPost />
+            <Route path="/new" exact >
+                <PostForm />
             </Route>
             <Redirect to="/" />
         </Switch>

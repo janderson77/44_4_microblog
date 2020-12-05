@@ -8,7 +8,7 @@ const Header = () => {
             <p className="lead">Get in the Rithm of blogging!</p>
             <div>
                 <NavLink className="Header-nav" to="/">Blog</NavLink>
-                <NavLink className="Header-nav" to="/posts/new">Add a new post</NavLink>
+                <NavLink className="Header-nav" to="/new">Add a new post</NavLink>
             </div>
         </div>
         
