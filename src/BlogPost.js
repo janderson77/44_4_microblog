@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import EditPostForm from './EditPostForm'
+import CommentSection from './CommentsSection'
 import "./BlogPost.css"
 
 const BlogPost = ({posts, deletePost, editPost}) => {
@@ -36,6 +37,7 @@ const BlogPost = ({posts, deletePost, editPost}) => {
                     <p className="card-text">{post.body}</p>
                 </div>
             </div>
+            <CommentSection />
         </div>
     )
 }
