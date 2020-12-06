@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {NavLink, Redirect, useHistory} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 
-const PostForm = ({newPost}) => {
+const PostForm = ({newPost, count}) => {
     const history = useHistory()
     const INITIAL_STATE = {
         title: "",
@@ -20,7 +20,7 @@ const PostForm = ({newPost}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        newPost({...formData})
+        newPost({...formData, id: count})
         setFormData(INITIAL_STATE)
         history.push('/')
 
