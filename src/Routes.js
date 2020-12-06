@@ -18,6 +18,21 @@ const Routes = () => {
           setPostState(postState => [...postState, data])
           setCount(() => count + 1)
       }
+
+      const editPost = (id, title, description, body) => {
+          const posts = [...postState]
+          const post = posts.find(p => {return p.id === Number(id)})
+          const postIndex = posts.indexOf({id: Number(id)})
+
+          post.title = title
+          post.description = description
+          post.body = body
+
+          posts[postIndex] = post
+
+          setPostState(posts)
+
+      }
     
       const deletePost = (pid) => {
           const newPostState = postState.filter((post) => post.id !== pid)
@@ -33,7 +48,7 @@ const Routes = () => {
                 <PostForm newPost={newPost} count={count} />
             </Route>
             <Route path="/:id" exact>
-                <BlogPost posts={postState} deletePost={deletePost} />
+                <BlogPost posts={postState} deletePost={deletePost} editPost={editPost} />
             </Route>
             <Redirect to="/" />
         </Switch>
