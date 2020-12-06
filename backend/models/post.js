@@ -18,6 +18,15 @@ class Post {
         return res.rows[0]
     }
 
+    static async getAll() {
+        const res = await db.query(`
+            SELECT * FROM posts
+            ORDER BY id
+        `)
+
+        return res.rows
+    }
+
     static async remove(id, title) {
         const res = await db.query(`
             DELETE FROM posts

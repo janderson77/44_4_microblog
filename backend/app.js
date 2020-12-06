@@ -7,8 +7,12 @@ app.use(cors());
 const morgan = require("morgan");
 app.use(morgan("tiny"));
 
+const postsRoutes = require('./routes/posts')
+
+app.use("/", postsRoutes)
+
 app.use(function (req, res, next) {
-    const err = newError("Not Found");
+    const err = new Error("Not Found");
     err.status = 404;
     return next(err)
 })

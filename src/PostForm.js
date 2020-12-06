@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, Redirect, useHistory} from 'react-router-dom'
 
-const PostForm = () => {
+const PostForm = ({newPost}) => {
+    const history = useHistory()
     const INITIAL_STATE = {
         title: "",
         description: "",
@@ -19,7 +20,10 @@ const PostForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        newPost({...formData})
         setFormData(INITIAL_STATE)
+        history.push('/')
+
     }
 
     return (
@@ -32,6 +36,7 @@ const PostForm = () => {
                         className="form-control"
                         value={formData.title}
                         onChange={handleChange}
+                        required
                     />
                     </div>
                     <div className="form-group">
@@ -41,6 +46,7 @@ const PostForm = () => {
                             className="form-control"
                             value={formData.description}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -51,6 +57,7 @@ const PostForm = () => {
                             className="form-control"
                             value={formData.body}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
