@@ -4,7 +4,7 @@ import EditPostForm from './EditPostForm'
 import CommentSection from './CommentsSection'
 import "./BlogPost.css"
 
-const BlogPost = ({posts, deletePost, editPost}) => {
+const BlogPost = ({posts, deletePost, editPost, comments, newComment, commentId, deleteComment}) => {
     const {id} = useParams();
     const postId = Number(id)
     const post = posts.find(p =>{ return p.id === postId})
@@ -20,6 +20,8 @@ const BlogPost = ({posts, deletePost, editPost}) => {
         deletePost(post.id)
         history.push('/')
     }
+
+    const postComments = comments.filter(c => c.postId === postId)
 
     return(
         <div>
@@ -37,7 +39,7 @@ const BlogPost = ({posts, deletePost, editPost}) => {
                     <p className="card-text">{post.body}</p>
                 </div>
             </div>
-            <CommentSection />
+            <CommentSection postId={post.id} comments={postComments} newComment={newComment} commentId={commentId} deleteComment={deleteComment} />
         </div>
     )
 }

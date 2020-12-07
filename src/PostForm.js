@@ -38,31 +38,31 @@ const PostForm = ({newPost, count}) => {
                         onChange={handleChange}
                         required
                     />
-                    </div>
-                    <div className="form-group">
-                        <label>Description</label>
-                        <input 
-                            name="description"
-                            className="form-control"
-                            value={formData.description}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Body</label>
-                        <textarea 
-                            name="body"
-                            type="textarea"
-                            className="form-control"
-                            value={formData.body}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                </div>
+                <div className="form-group">
+                    <label>Description</label>
+                    <input 
+                        name="description"
+                        className="form-control"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Body</label>
+                    <textarea 
+                        name="body"
+                        type="textarea"
+                        className="form-control"
+                        value={formData.body}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    <button className="btn btn-info" type="submit">Submit</button>
-                    <NavLink className="btn btn-danger" to="/">Cancel</NavLink>
+                <button className="btn btn-info" type="submit">Submit</button>
+                <NavLink className="btn btn-danger" to="/">Cancel</NavLink>
             </form>
         </div>
     )

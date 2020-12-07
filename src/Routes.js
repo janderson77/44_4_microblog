@@ -12,8 +12,10 @@ const Routes = () => {
         body: "This is the body"
       }
       const [postState, setPostState] = useState([POST_INITIAL_STATE])
+      
       const [count, setCount] = useState(2)
 
+//!!!!!!!!!Posts Functions!!!!!!!!!!!!
       const newPost = (data) => {
           setPostState(postState => [...postState, data])
           setCount(() => count + 1)
@@ -37,7 +39,21 @@ const Routes = () => {
       const deletePost = (pid) => {
           const newPostState = postState.filter((post) => post.id !== pid)
           setPostState(newPostState)
-      }    
+      }
+      
+//!!!!!!!!!!!!!!!!!Comments Functions!!!!!!!!!!!!!!!!!!
+        const [commentsState, setCommentsState] = useState([])
+        const [commentCount, setCommentCount] = useState(1)
+
+        const newComment = (comment) => {
+            setCommentsState([...commentsState, comment]) 
+            setCommentCount(() => commentCount + 1)
+        }
+
+        const deleteComment = (cid) => {
+            const newCommentState = commentsState.filter((comment) => comment.id !== cid)
+            setCommentsState(newCommentState)
+        }
 
     return (
         <Switch>
@@ -48,7 +64,7 @@ const Routes = () => {
                 <PostForm newPost={newPost} count={count} />
             </Route>
             <Route path="/:id" exact>
-                <BlogPost posts={postState} deletePost={deletePost} editPost={editPost} />
+                <BlogPost posts={postState} deletePost={deletePost} editPost={editPost} comments={commentsState} newComment={newComment} commentId={commentCount} deleteComment={deleteComment} />
             </Route>
             <Redirect to="/" />
         </Switch>
