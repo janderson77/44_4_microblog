@@ -6,7 +6,7 @@ import CommentSection from './CommentsSection'
 import "./BlogPost.css"
 import {delete_post} from './actions/actions'
 
-const BlogPost = ({comments, newComment, commentId, deleteComment}) => {
+const BlogPost = () => {
     const dispatch = useDispatch()
     const {id} = useParams();
     const postId = Number(id)
@@ -27,8 +27,6 @@ const BlogPost = ({comments, newComment, commentId, deleteComment}) => {
         history.push('/')
     }
 
-    const postComments = comments.filter(c => c.postId === postId)
-
     return(
         <div>
             {isEditing ? <EditPostForm postId={postId} setIsEditing={setIsEditing} />: null}
@@ -45,7 +43,7 @@ const BlogPost = ({comments, newComment, commentId, deleteComment}) => {
                     <p className="card-text">{post.body}</p>
                 </div>
             </div>
-            <CommentSection postId={post.id} comments={postComments} newComment={newComment} commentId={commentId} deleteComment={deleteComment} />
+            <CommentSection postId={post.id} />
         </div>
     )
 }

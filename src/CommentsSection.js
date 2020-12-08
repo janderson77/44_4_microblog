@@ -1,12 +1,21 @@
 import React, {useState} from 'react'
 import Comment from './Comment'
 import './CommentSection.css'
+import {useSelector, useDispatch} from 'react-redux'
+import {add_comment, delete_comment} from './actions/actions'
+import { v4 as uuid } from 'uuid';
 
-const CommentSection = ({postId, comments, newComment, commentId, deleteComment}) => {
+const CommentSection = ({postId}) => {
     const INITIAL_STATE = {
         commentBody: ""
     }
     const [formData, setFormData] = useState(INITIAL_STATE);
+    const dispatch = useDispatch()
+
+    const getComments = useSelector(store => ({
+        comments: store.comments
+    }))
+    const comments = getComments.comments
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -16,9 +25,13 @@ const CommentSection = ({postId, comments, newComment, commentId, deleteComment}
         }))
     }
 
+    const deleteComment = (id) => {
+        dispatch(delete_comment(id))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        newComment({...formData, postId: postId, id: commentId})
+        dispatch(add_comment({...formData, postId: postId, id: uuid()}))
         setFormData(INITIAL_STATE)
     }
 
