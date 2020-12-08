@@ -1,7 +1,15 @@
 import React, {useState} from 'react'
 import {NavLink, useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {add_post, up} from './actions/actions'
 
-const PostForm = ({newPost, count}) => {
+const PostForm = () => {
+    const dispatch = useDispatch()
+    const newPost = (post) => dispatch(add_post(post))
+    const count = useSelector(store => ({
+        count: store.count
+    }))
+
     const history = useHistory()
     const INITIAL_STATE = {
         title: "",
@@ -20,8 +28,9 @@ const PostForm = ({newPost, count}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        newPost({...formData, id: count})
+        newPost({...formData, id: count.count})
         setFormData(INITIAL_STATE)
+        dispatch(up())
         history.push('/')
 
     }

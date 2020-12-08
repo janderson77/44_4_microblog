@@ -26,8 +26,6 @@ const CommentSection = ({postId, comments, newComment, commentId, deleteComment}
         <Comment key={c.id} comment={c} deleteComment={deleteComment} />
     ))
 
-    console.log(commentId)
-
     return(
         <div className="Comments">
             Comments

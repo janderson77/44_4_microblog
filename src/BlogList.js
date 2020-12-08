@@ -1,18 +1,18 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import BlogListCard from './BlogListCard'
 
-const BlogList = (posts) => {
-    const postList = posts.posts.postState
+const BlogList = () => {
     let list;
+    const postList = useSelector(store => store.posts)
 
-    if (postList.length > 0){
-        list = postList.map(p => (
-            <div className='card' key={p.id} id={p.id}>
-                <div className='card-body'>
-                    <NavLink to={`/${p.id}`} ><h5 className='card-title'>{p.title}</h5></NavLink>
-                    <p className="card-text">{p.description}</p>
-                </div>
-            </div>
+    const postArray = Object.values(postList)
+    
+
+    if (Object.keys(postList).length > 0){
+        
+        list = postArray.map(p => (
+            <BlogListCard key={p.id} id={p.id} title={p.title} description={p.description} />
         ))
     } else {
         list = <div>No Posts Here...</div>

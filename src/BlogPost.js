@@ -1,13 +1,19 @@
 import React, {useState} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
 import EditPostForm from './EditPostForm'
 import CommentSection from './CommentsSection'
 import "./BlogPost.css"
+import {delete_post} from './actions/actions'
 
-const BlogPost = ({posts, deletePost, editPost, comments, newComment, commentId, deleteComment}) => {
+const BlogPost = ({comments, newComment, commentId, deleteComment}) => {
+    const dispatch = useDispatch()
     const {id} = useParams();
     const postId = Number(id)
-    const post = posts.find(p =>{ return p.id === postId})
+    const getPost = useSelector(store => ({
+        post: store.posts[postId]
+    }))
+    const post = getPost.post
     const history = useHistory()
 
     const [isEditing, setIsEditing] = useState(false)
@@ -17,7 +23,7 @@ const BlogPost = ({posts, deletePost, editPost, comments, newComment, commentId,
     }
 
     const handleDelete = () => {
-        deletePost(post.id)
+        dispatch(delete_post(post.id))
         history.push('/')
     }
 
@@ -25,7 +31,7 @@ const BlogPost = ({posts, deletePost, editPost, comments, newComment, commentId,
 
     return(
         <div>
-            {isEditing ? <EditPostForm post={post} editPost={editPost} setIsEditing={setIsEditing} />: null}
+            {isEditing ? <EditPostForm postId={postId} setIsEditing={setIsEditing} />: null}
             <div className='card'>
                 <div className="card-body">
                     <div className="title-area">
