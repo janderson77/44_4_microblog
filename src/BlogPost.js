@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useParams, useHistory} from 'react-router-dom'
+import {useParams, useHistory, NavLink} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import EditPostForm from './EditPostForm'
 import CommentSection from './CommentsSection'
@@ -7,6 +7,7 @@ import "./BlogPost.css"
 import {delete_post} from './actions/actions'
 
 const BlogPost = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const {id} = useParams();
     const postId = Number(id)
@@ -14,7 +15,6 @@ const BlogPost = () => {
         post: store.posts[postId]
     }))
     const post = getPost.post
-    const history = useHistory()
 
     const [isEditing, setIsEditing] = useState(false)
 
@@ -26,6 +26,14 @@ const BlogPost = () => {
         dispatch(delete_post(post.id))
         history.push('/')
     }
+    if(post === undefined){
+        return(
+            <div>
+                <h2>404! Not Found!</h2>
+                <NavLink to="/">Go Back Home!</NavLink>
+            </div>
+        )
+    }else {
 
     return(
         <div>
@@ -46,6 +54,7 @@ const BlogPost = () => {
             <CommentSection postId={post.id} />
         </div>
     )
+    }
 }
 
 export default BlogPost
