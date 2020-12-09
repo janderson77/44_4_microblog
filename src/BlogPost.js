@@ -1,20 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams, useHistory, NavLink} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import EditPostForm from './EditPostForm'
 import CommentSection from './CommentsSection'
 import "./BlogPost.css"
-import {delete_post} from './actions/actions'
+import {deletePost, fetchSinglePost, cleanPost} from './actions/actionCreators'
 
 const BlogPost = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const {id} = useParams();
     const postId = Number(id)
-    const getPost = useSelector(store => ({
-        post: store.posts[postId]
+
+    useEffect(() => {
+        const getSinglePost = async() => {
+            dispatch(fetchSinglePost(postId))
+        }
+        getSinglePost();
+        return () => {
+            dispatch(cleanPost())
+        }
+        
+    }, [dispatch, postId])
+
+    let {post} = useSelector(store => ({
+        post: store.post
     }))
-    const post = getPost.post
 
     const [isEditing, setIsEditing] = useState(false)
 
@@ -23,7 +34,7 @@ const BlogPost = () => {
     }
 
     const handleDelete = () => {
-        dispatch(delete_post(post.id))
+        dispatch(deletePost(post.id))
         history.push('/')
     }
     if(post === undefined){

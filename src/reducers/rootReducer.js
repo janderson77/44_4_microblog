@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux'
 
 import posts from './posts'
-import count from './count'
-import comments from './comments'
+import post from './post'
 import error from './error'
+import comments from './comments'
 
-const rootReducer = combineReducers({posts, count, comments, error})
+const rootReducer = combineReducers({posts, post, error, comments})
 
 export default rootReducer

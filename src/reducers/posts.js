@@ -10,7 +10,7 @@ const INITIAL_STATE = {1:{
         case 'FETCH_POSTS':
             return {...state, ...action.posts}
         case 'ADD_POST':
-            return {...state, [action.post.id]: posts.posts}
+            return {...state, [action.post.id]: action.post}
         case 'EDIT_POST':
             return {...state, [action.post.id]: action.post}
         case 'DELETE_POST':

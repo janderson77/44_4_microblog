@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { edit_post } from './actions/actions'
+import {editPost} from './actions/actionCreators'
 
-const EditPostForm = ({postId, editPost, setIsEditing}) => {
+const EditPostForm = ({postId, setIsEditing}) => {
     const dispatch = useDispatch()
 
     const {posts} = useSelector(state => ({
@@ -34,9 +34,8 @@ const EditPostForm = ({postId, editPost, setIsEditing}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // editPost2({id: post.id, title: formData.title, description: formData.description, body: formData.body})
-        console.log({...formData, id: post.id})
-        dispatch(edit_post({...formData, id: post.id}))
+        dispatch(editPost({...formData, id: post.id}))
+        // dispatch(edit_post({...formData, id: post.id}))
         setIsEditing(false)
     }
 

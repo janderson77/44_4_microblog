@@ -5,16 +5,16 @@ import {fetchPosts} from './actions/actionCreators'
 
 const BlogList = () => {
     const dispatch= useDispatch()
-    let list;
-    const postList = useSelector(store => store.posts, shallowEqual)
-
-    const postArray = Object.values(postList)
-
+    
     useEffect(() => {
         dispatch(fetchPosts())
     },[dispatch])
 
-    
+    let list;
+
+    const postList = useSelector(store => store.posts)
+
+    const postArray = Object.values(postList)
 
     if (Object.keys(postList).length > 0){
         

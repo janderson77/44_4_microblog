@@ -57,7 +57,7 @@ router.get("/:id", async function (req, res, next) {
               p.body,
               p.votes,
               CASE WHEN COUNT(c.id) = 0 THEN JSON '[]' ELSE JSON_AGG(
-                    JSON_BUILD_OBJECT('id', c.id, 'text', c.text)
+                    JSON_BUILD_OBJECT('id', c.id, 'commentBody', c.commentBody)
                 ) END AS comments
       FROM posts p 
         LEFT JOIN comments c ON c.post_id = p.id

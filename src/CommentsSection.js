@@ -1,21 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Comment from './Comment'
 import './CommentSection.css'
 import {useSelector, useDispatch} from 'react-redux'
-import {add_comment, delete_comment} from './actions/actions'
-import { v4 as uuid } from 'uuid';
+import {deleteComment, getComments, addComment} from './actions/actionCreators'
 
 const CommentSection = ({postId}) => {
     const INITIAL_STATE = {
         commentBody: ""
     }
+
     const [formData, setFormData] = useState(INITIAL_STATE);
     const dispatch = useDispatch()
 
-    const getComments = useSelector(store => ({
+    useEffect(() => {
+        const getPostComments = async (postId) => {
+            dispatch(getComments(Number(postId)))
+        }
+        getPostComments(postId)
+        
+    }, [dispatch, postId])
+
+    const {comments} = useSelector(store => ({
         comments: store.comments
     }))
-    const comments = getComments.comments
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -25,25 +32,32 @@ const CommentSection = ({postId}) => {
         }))
     }
 
-    const deleteComment = (id) => {
-        dispatch(delete_comment(id))
+    const deleteComments = (id) => {
+        dispatch(deleteComment(postId, id))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(add_comment({...formData, postId: postId, id: uuid()}))
+        dispatch(addComment(Number(postId),{...formData}))
         setFormData(INITIAL_STATE)
     }
 
-    const commentList = comments.map(c => (
-        <Comment key={c.id} comment={c} deleteComment={deleteComment} />
-    ))
+    let commentList
+
+    if(comments.length < 1){
+        commentList = <p>Loading comments...</p>
+    }else{
+        commentList = comments.map(c => (
+            <Comment key={c.id} comment={c} deleteComment={deleteComments} />
+        ))
+    }
+    
 
     return(
         <div className="Comments">
             Comments
             <div className="Comments-commentSection">
-                {comments.length > 0 ? <div>{commentList}</div> : <div>Sorry, no comments yet...</div>}
+                {commentList.length > 0 ? <div>{commentList}</div> : <div>Sorry, no comments yet...</div>}
             </div>
             <div className="Comments-CommentForm ">
                 <form className="d-flex flex-row" onSubmit={handleSubmit} >

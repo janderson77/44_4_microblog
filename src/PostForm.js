@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import {NavLink, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {add_post, up} from './actions/actions'
+import {addPost} from './actions/actionCreators'
+import {add_post} from './actions/actions'
 
 const PostForm = () => {
     const dispatch = useDispatch()
-    const newPost = (post) => dispatch(add_post(post))
+    const newPost = (post) => dispatch(addPost(post))
     const count = useSelector(store => ({
         count: store.count
     }))
@@ -30,7 +31,6 @@ const PostForm = () => {
         e.preventDefault()
         newPost({...formData, id: count.count})
         setFormData(INITIAL_STATE)
-        dispatch(up())
         history.push('/')
 
     }
