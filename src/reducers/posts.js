@@ -8,9 +8,9 @@ const INITIAL_STATE = {1:{
   export default function posts(state = INITIAL_STATE, action) {
       switch (action.type) {
         case 'FETCH_POSTS':
-            return {...state, posts: action.posts}
+            return {...state, ...action.posts}
         case 'ADD_POST':
-            return {...state, [action.post.id]: action.post}
+            return {...state, [action.post.id]: posts.posts}
         case 'EDIT_POST':
             return {...state, [action.post.id]: action.post}
         case 'DELETE_POST':

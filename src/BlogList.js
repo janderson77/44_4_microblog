@@ -1,12 +1,19 @@
-import React from 'react'
-import {useSelector} from 'react-redux'
+import React, {useEffect} from 'react'
+import {useSelector, useDispatch, shallowEqual} from 'react-redux'
 import BlogListCard from './BlogListCard'
+import {fetchPosts} from './actions/actionCreators'
 
 const BlogList = () => {
+    const dispatch= useDispatch()
     let list;
-    const postList = useSelector(store => store.posts)
+    const postList = useSelector(store => store.posts, shallowEqual)
 
     const postArray = Object.values(postList)
+
+    useEffect(() => {
+        dispatch(fetchPosts())
+    },[dispatch])
+
     
 
     if (Object.keys(postList).length > 0){
